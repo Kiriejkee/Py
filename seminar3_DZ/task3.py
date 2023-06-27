@@ -39,26 +39,17 @@ en_dict[5] = {'K'}
 en_dict[8] = {'JX'}
 en_dict[10] = {'QZ'}
 score = 0
+k = k.upper()
 for i in k:
     for j in ru_dict.values():
         if i in str(j):
             key = [p for p in ru_dict if ru_dict[p] == j]
-            score += key
-        else:
-            value = str(j).lower()
-            if i in value:
-                key = [p for p in ru_dict if ru_dict[p] == j]
-                score += key[0]
+            score += key[0]
 for i in k:
     for j in en_dict.values():
         if i in str(j):
             key = [p for p in en_dict if en_dict[p] == j]
-            score += key
-        else:
-            value = str(j).lower()
-            if i in value:
-                key = [p for p in en_dict if en_dict[p] == j]
-                score += key[0]
+            score += key[0]
 print(score)
 
 '''
