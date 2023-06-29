@@ -6,15 +6,17 @@
 # Напишите программу для нахождения максимального числа ягод, которое может собрать за один заход собирающий модуль, находясь перед некоторым кустом заданной во входном файле грядки.
 import random
 
-n = int(input('Введите количество кустов на грядке '))
+n = 5#int(input('Введите количество кустов на грядке '))
 list_yag = []
 for i in range(n):
     list_yag.append(random.randint(1,50))
+print(list_yag)
 max = list_yag[1]
 for i in range(n-1):
-    check = list_yag[i-1] + list_yag[i] + list_yag[i+1]
+    check = list_yag[i-2] + list_yag[i-1] + list_yag[i]
     if max < check:
         max = check
+    print(check)
 print(max)
 
 
