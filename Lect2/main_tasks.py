@@ -1,7 +1,7 @@
 # #Создание списка
 # # list_1 = []
 # # list_1 = list()
-# # list_1 = [1, 2, 3, 5]
+list_1 = [1, 2, 3, 5]
 # # print(list_1)
 # # print(*list_1)
 #
@@ -11,8 +11,8 @@
 # # print(len(list_1))
 # # print(list_1[0]) Вывод элемента листа (при "-" нумерация с конца)
 #
-# # list_1 = [1, 5]
-# # print(list_1)
+# list_1 = [1: 5]
+# print(list_1[1:-2])
 # # list_1.append(8) Добавление элемента
 # # print(list_1)
 # # list_1.append(85)
