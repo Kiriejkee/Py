@@ -81,4 +81,4 @@
 #         return False
 #     return polindrom(word[1:-1])
 #
-# print(polindrom("арозаупаланалапуазоро"))
+# print(polindrom("арозаупаланалапуазора"))
