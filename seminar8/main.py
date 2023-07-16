@@ -8,7 +8,9 @@ def show_menu():
           "3. Найти абонента по номеру телефона\n"
           "4. Добавить абонента в справочник\n"
           "5. Сохранить справочник в текстовом формате\n"
-          "6. Закончить работу")
+          "6. Удалить абонента\n"
+          "7. Изменить данные абонента\n"
+          "8. Закончить работу")
     choice = int(input())
     return choice
 
@@ -18,7 +20,7 @@ def work_with_phonebook():
     phone_book = read_csv('phonebook.csv')
 
 
-    while (choice != 6):
+    while (choice != 8):
         if choice == 1:
             print_result(phone_book)
         elif choice == 2:
@@ -34,7 +36,65 @@ def work_with_phonebook():
         elif choice == 5:
             file_name = get_file_name()
             write_txt(file_name, phone_book)
+        elif choice == 6:
+            name = get_delete_name()
+            delete(phone_book, name)
+            write_csv('phonebook.csv', phone_book)
+        elif choice == 7:
+            data = get_change_data(phone_book)
+            change_name(data,phone_book)
+            write_csv('phonebook.csv', phone_book)
         choice = show_menu()
+
+
+def get_delete_name():
+    return input("Введите имя или фамилию абонента для удаления: ")
+
+
+def delete(phone_book, name):
+    flag = 1
+    while flag:
+        for i in phone_book:
+            if i["Фамилия"] == name or i["Имя"] == name:
+                check = input(f'\n{i}\n Если вы хотите удалить абонента введите 1, иначе нажмите Enter')
+                if check:
+                    phone_book.remove(i)
+                    print(f'Абонент {name} удалён из справочника')
+                flag = 0
+        if flag == 1:
+            print("Абонент с таким именем или фамилией не найден")
+        flag = 0
+
+
+def get_change_data(phone_book):
+
+    choice = int(input("Если хотите изменить фамилию абонента введите - 0, если имя - введите 1: "))
+    if choice == 0:
+        choice = "Фамилия"
+        staroe = input("Введите старую фамилию абонента: ")
+        if find_by(phone_book, choice, staroe) == 'Контакт не найден :(': return False
+        name = input("Введите новую фамилию абонента: ")
+
+    elif choice == 1:
+        choice = "Имя"
+        staroe = input("Введите старое имя абонента: ")
+        if find_by(phone_book, choice, staroe) == 'Контакт не найден :(': return False
+        name = input("Введите новое имя абонента: ")
+    # else:
+    #     return get_change_data(phone_book)
+    return [choice, staroe, name]
+
+
+def change_name(data, phone_book):
+    if data == False: return print('Контакт не найден :(')
+    else:
+        for i in phone_book:
+            if i[data[0]] == data[1]:
+                i[data[0]] = data[2]
+                return print("Данные успешно изменены! ")
+
+
+
 
 def print_result(phone_book):
     print_table(phone_book)
@@ -64,7 +124,7 @@ def get_search_number():
 def find_by(phone_book, case, data):
     result = list()
     for i in phone_book:
-        if i[case].lower() == data:
+        if i[case].lower() == data.lower():
             result.append(i)
     if len(result) == 0:
         return 'Контакт не найден :('
